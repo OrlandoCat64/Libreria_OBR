@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36301.6 d17.14
+VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{8688B110-DC1B-4D3F-B86D-733C9818263B}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{452A6F27-D7F1-41B9-A6CC-18C09CA946A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL", "DL\DL.csproj", "{077A5960-4F21-4254-B1E7-0245B2B206B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiRest", "ApiRest\ApiRest.csproj", "{A684AD58-7EBC-4106-8A7D-9B5689CFEE3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{077A5960-4F21-4254-B1E7-0245B2B206B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{077A5960-4F21-4254-B1E7-0245B2B206B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{077A5960-4F21-4254-B1E7-0245B2B206B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A684AD58-7EBC-4106-8A7D-9B5689CFEE3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A684AD58-7EBC-4106-8A7D-9B5689CFEE3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A684AD58-7EBC-4106-8A7D-9B5689CFEE3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A684AD58-7EBC-4106-8A7D-9B5689CFEE3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
