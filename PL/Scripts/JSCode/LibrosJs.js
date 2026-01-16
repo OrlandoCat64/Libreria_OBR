@@ -1,58 +1,88 @@
 ﻿console.log("Macaco")
 
-const API_URL = "https://localhost:44300/api/libro";
 
 function buscarPorAutor() {
-    let idAutor = document.getElementById("idAutor").value;
+    let idAutor = $("#idAutor").val();
 
-    fetch(`${API_URL}/autor/${idAutor}`)
-        .then(res => res.json())
-        .then(data => {
-            let lista = document.getElementById("listaLibros");
-            lista.innerHTML = "";
+    $.ajax({
+        url: "http://localhost:58677/api/libro/autor/" + idAutor,
+        type: "GET",
+        success: function (data) {
+            let lista = $("#listaLibros");
+            lista.empty();
 
             data.forEach(libro => {
-                let li = document.createElement("li");
-                li.textContent = libro.Titulo;
-                li.onclick = () => mostrarDetalle(libro);
-                lista.appendChild(li);
+                let li = $("<li>")
+                    .addClass("list-group-item list-group-item-action")
+                    .text(libro.Titulo)
+                    .click(function () {
+                        mostrarDetalle(libro);
+                    });
+
+                lista.append(li);
             });
-        });
+        },
+        error: function () {
+            alert("Error al buscar libros por autor");
+        }
+    });
 }
 
-    function mostrarDetalle(libro) {
-        document.getElementById("detalleLibro").innerHTML = `
+// Mostrar detalle
+function mostrarDetalle(libro) {
+    $("#detalleLibro").html(`
         <p><b>Título:</b> ${libro.Titulo}</p>
         <p><b>Autor:</b> ${libro.Autor.Nombre}</p>
         <p><b>Fecha:</b> ${libro.FechaPublicacion}</p>
         <p><b>Editorial:</b> ${libro.Editorial.Nombre}</p>
-    `;
+    `);
 }
 
+//  Buscar por título
 function buscarPorTitulo() {
-    let titulo = document.getElementById("titulo").value;
+    let titulo = $("#titulo").val();
 
-    fetch(`${API_URL}/titulo/${titulo}`)
-        .then(res => res.json())
-        .then(data => {
-            let libro = data[0]; 
-            document.getElementById("resultadoTitulo").innerHTML = `
-                <p><b>Título:</b> ${libro.Titulo}</p>
-                <p><b>Autor:</b> ${libro.Autor.Nombre}</p>
-            `;
-        });
+    $.ajax({
+        url: "http://localhost:58677/api/libro/titulo/" + titulo,
+        type: "GET",
+        success: function (data) {
+            if (data && data.length > 0) {
+                let libro = data[0];
+
+                // Convertir la fecha a formato legible
+                let fechaPublicacion = new Date(libro.AñoPublicacion)
+                    .toLocaleDateString("es-MX");
+
+                $("#resultadoTitulo").html(`
+                    <p><b>ID Libro:</b> ${libro.IdLibro}</p>
+                    <p><b>Título:</b> ${libro.Titulo}</p>
+                    <p><b>Año de Publicación:</b> ${fechaPublicacion}</p>
+                    <p><b>ID Autor:</b> ${libro.IdAutor}</p>
+                    <p><b>ID Editorial:</b> ${libro.IdEditorial}</p>
+                `);
+            } else {
+                $("#resultadoTitulo").html(
+                    "<p class='text-danger'>No se encontró el libro</p>"
+                );
+            }
+        },
+        error: function () {
+            alert("Error al buscar por título");
+        }
+    });
 }
-function agregarLibro() {
 
-    var libro = {
+//  Agregar libro
+function agregarLibro() {
+    let libro = {
         Titulo: $("#nuevoTitulo").val(),
-        Autor: { IdAutor: $("#nuevoAutor").val() },
-        Editorial: { IdEditorial: $("#nuevaEditorial").val() },
-        FechaPublicacion: $("#nuevaFecha").val()
+        AñoPublicacion: $("#nuevaFecha").val(), 
+        IdAutor: parseInt($("#nuevoAutor").val()),
+        IdEditorial: parseInt($("#nuevaEditorial").val())
     };
 
     $.ajax({
-        url: API_URL + "/add",
+        url: "http://localhost:58677/api/libro/add",
         type: "POST",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(libro),
@@ -65,7 +95,3 @@ function agregarLibro() {
         }
     });
 }
-
- 
-
-

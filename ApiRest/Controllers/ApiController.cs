@@ -3,16 +3,28 @@ using ML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 
 namespace ApiRest.Controllers
 {
+   
 
     [RoutePrefix("api/libro")]
     public class LibroController : ApiController
     {
+
+
+        [HttpOptions]
+        [Route("add")]
+        public IHttpActionResult OptionsAdd()
+        {
+            return Ok();
+        }
+
         // POST: api/libro/add
         [HttpPost]
         [Route("add")]
@@ -98,5 +110,18 @@ namespace ApiRest.Controllers
             else
                 return NotFound();
         }
+
+
+        [AcceptVerbs("OPTIONS")]
+        [Route("{*any}")]
+        public HttpResponseMessage Options()
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Headers.Add("Access-Control-Allow-Origin", "*");
+            response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization");
+            return response;
+        }
+
     }
 }
