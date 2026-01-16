@@ -17,5 +17,6 @@ namespace ML
         //Propiedad de navegacion 
         public string NombreAutor { get; set; }
         public string NombreEditorial { get; set; }
+
     }
 }

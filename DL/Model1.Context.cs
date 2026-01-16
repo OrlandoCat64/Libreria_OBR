@@ -118,5 +118,10 @@ namespace DL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LibrosPorTitulo_Result>("LibrosPorTitulo", tituloParameter);
         }
+    
+        public virtual ObjectResult<GetAllLibros_Result> GetAllLibros()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllLibros_Result>("GetAllLibros");
+        }
     }
 }

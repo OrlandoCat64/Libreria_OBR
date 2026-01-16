@@ -97,6 +97,7 @@
         <Function Name="DeleteLibros" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdAutor" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetAllLibros" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="LibroPorAutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdAutor" Type="int" Mode="In" />
         </Function>
@@ -241,6 +242,7 @@
           <FunctionImport Name="LibrosPorTitulo" ReturnType="Collection(BibliotecaDBModel.LibrosPorTitulo_Result)">
           <Parameter Name="Titulo" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetAllLibros" ReturnType="Collection(BibliotecaDBModel.GetAllLibros_Result)" />
         </EntityContainer>
         <ComplexType Name="LibroPorAutor_Result">
           <Property Type="Int32" Name="IdLibro" Nullable="false" />
@@ -276,6 +278,13 @@
           <Property Type="DateTime" Name="AñoPublicacion" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="IdAutor" Nullable="false" />
           <Property Type="Int32" Name="IdEditorial" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAllLibros_Result">
+          <Property Type="Int32" Name="IdLibro" Nullable="false" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="AñoPublicacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NombreAutor" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="NombreEditorial" Nullable="false" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -373,6 +382,17 @@
                 <ScalarProperty Name="AñoPublicacion" ColumnName="AñoPublicacion" />
                 <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
                 <ScalarProperty Name="IdEditorial" ColumnName="IdEditorial" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllLibros" FunctionName="BibliotecaDBModel.Store.GetAllLibros">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BibliotecaDBModel.GetAllLibros_Result">
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="AñoPublicacion" ColumnName="AñoPublicacion" />
+                <ScalarProperty Name="NombreAutor" ColumnName="NombreAutor" />
+                <ScalarProperty Name="NombreEditorial" ColumnName="NombreEditorial" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

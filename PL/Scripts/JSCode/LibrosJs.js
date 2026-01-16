@@ -28,15 +28,40 @@ function buscarPorAutor() {
     });
 }
 
+
+
 // Mostrar detalle
-function mostrarDetalle(libro) {
-    $("#detalleLibro").html(`
-        <p><b>Título:</b> ${libro.Titulo}</p>
-        <p><b>Autor:</b> ${libro.Autor.Nombre}</p>
-        <p><b>Fecha:</b> ${libro.FechaPublicacion}</p>
-        <p><b>Editorial:</b> ${libro.Editorial.Nombre}</p>
-    `);
+function cargarLibros() {
+    $.ajax({
+        url: "http://localhost:58677/api/libro/autor/getall",
+        type: "GET",
+        success: function (data) {
+            let lista = $("#listaLibros");
+            lista.empty();
+
+            data.forEach(libro => {
+                let li = $("<li>").text(libro.Titulo).click(function () {
+                    mostrarDetalle(libro);
+                });
+                lista.append(li);
+            });
+        },
+        error: function (err) {
+            console.error("Error al obtener los libros:", err);
+        }
+    });
 }
+
+function mostrarDetalle(libro) {
+    $("#infoLibro").html(`
+                <p><b>Título:</b> ${libro.Titulo}</p>
+                <p><b>Año de publicación:</b> ${new Date(libro.AñoPublicacion).toLocaleDateString()}</p>
+                <p><b>Autor:</b> ${libro.IdAutor}</p>
+                <p><b>Editorial:</b> ${libro.IdEditorial}</p>
+            `);
+}
+
+
 
 //  Buscar por título
 function buscarPorTitulo() {
@@ -94,4 +119,36 @@ function agregarLibro() {
             console.error(xhr.responseText);
         }
     });
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://localhost:58677/api/libro/getall",
+            type: "GET",
+            success: function (data) {
+                let lista = $("#listaLibros");
+                lista.empty();
+
+                if (data && data.length > 0) {
+                    data.forEach(libro => {
+                        let li = $("<li>")
+                            .addClass("list-group-item list-group-item-action")
+                            .text(libro.Titulo)
+                            .click(function () {
+                                mostrarDetalle(libro);
+                            });
+
+                        lista.append(li);
+                    });
+                } else {
+                    lista.html("<li class='list-group-item text-danger'>No hay libros registrados</li>");
+                }
+            },
+            error: function () {
+                alert("Error al obtener los libros");
+            }
+        });
+    });
+
+    
+
 }

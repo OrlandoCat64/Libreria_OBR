@@ -297,6 +297,53 @@ namespace BL
             return result;
         }
 
+        public static ML.Result GetAll()
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using (DL.BibliotecaDBEntities context = new DL.BibliotecaDBEntities())
+                {
+                    var registros = context.GetAllLibros().ToList();
+
+                    result.Objects = new List<object>();
+
+                    if (registros.Count > 0)
+                    {
+                        foreach (var registro in registros)
+                        {
+                            ML.Libro libro = new ML.Libro();
+
+                            libro.IdLibro = registro.IdLibro;
+                            libro.Titulo = registro.Titulo;
+                            libro.AñoPublicacion = registro.AñoPublicacion ?? DateTime.MinValue;
+                            libro.NombreAutor = registro.NombreAutor;     
+                            libro.NombreEditorial = registro.NombreEditorial;
+
+                            result.Objects.Add(libro);
+                        }
+
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No hay libros registrados";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+
+            return result;
+        }
+
+
     }
 
 }

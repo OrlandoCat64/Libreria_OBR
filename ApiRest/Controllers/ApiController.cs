@@ -61,6 +61,18 @@ namespace ApiRest.Controllers
                 return NotFound();
         }
 
+        [HttpGet]
+        [Route("getall")]
+        public IHttpActionResult GetAll()
+        {
+            Result result = BibliotecaBL.GetAll();
+            if (result.Correct)
+                return Ok(result.Objects);
+            else
+                return NotFound();
+        }
+
+
         // GET: api/libro/fecha?anio=2023-01-01
         [HttpGet]
         [Route("fecha")]
