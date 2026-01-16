@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "LibrosJS";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4"> Gestión de Libros</h2>
+
+    <!-- Buscar por Autor -->
+    <div class="card mb-4 shadow">
+        <div class="card-header bg-primary text-white">
+            Buscar libros por autor
+        </div>
+        <div class="card-body">
+            <div class="row g-2">
+                <div class="col-md-8">
+                    <input type="number" id="idAutor" class="form-control" placeholder="Id Autor">
+                </div>
+                <div class="col-md-4 d-grid">
+                    <button class="btn btn-primary" onclick="buscarPorAutor()">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+
+            <ul id="listaLibros" class="list-group mt-3"></ul>
+        </div>
+    </div>
+
+    <!-- Detalle del Libro -->
+    <div class="card mb-4 shadow">
+        <div class="card-header bg-success text-white">
+            Detalle del libro
+        </div>
+        <div class="card-body" id="detalleLibro">
+            <p class="text-muted">Seleccione un libro para ver la información</p>
+        </div>
+    </div>
+
+    <!-- Buscar por Título -->
+    <div class="card mb-4 shadow">
+        <div class="card-header bg-warning">
+            Buscar libro por título
+        </div>
+        <div class="card-body">
+            <div class="row g-2">
+                <div class="col-md-8">
+                    <input type="text" id="titulo" class="form-control" placeholder="Título del libro">
+                </div>
+                <div class="col-md-4 d-grid">
+                    <button class="btn btn-warning" onclick="buscarPorTitulo()">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultadoTitulo" class="mt-3"></div>
+        </div>
+    </div>
+
+    <!-- Agregar Libro -->
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            Agregar nuevo libro
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <input type="text" id="nuevoTitulo" class="form-control" placeholder="Título">
+                </div>
+
+                <div class="col-md-3">
+                    <input type="number" id="nuevoAutor" class="form-control" placeholder="Id Autor">
+                </div>
+
+                <div class="col-md-3">
+                    <input type="number" id="nuevaEditorial" class="form-control" placeholder="Id Editorial">
+                </div>
+
+                <div class="col-md-6">
+                    <input type="date" id="nuevaFecha" class="form-control">
+                </div>
+
+                <div class="col-md-6 d-grid">
+                    <button class="btn btn-success" onclick="agregarLibro()">
+                        Guardar libro
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<script src="~/Scripts/JSCode/LibrosJs.js"></script>
